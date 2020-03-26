@@ -1,5 +1,6 @@
 const { Book, User } = require('../models')
 const { Op } = require("sequelize");
+const Auth = require("../controllers/auth")
 
 const multer = require('multer');
 const path = require('path')
@@ -17,6 +18,7 @@ const upload = multer({
 class Books {
 
     static list(req, res) {
+        console.log(req.session.role)
         Book.findAll({ order: [["title", 'ASC']] })
             .then(data => {
                 if (req.query.success) res.render('book.ejs', { data: data, success: req.query.success })
@@ -106,6 +108,30 @@ class Books {
                 res.redirect('/book?success=' + 'Successfully edit data')
             })
             .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static rent(req, res) {
+        let dataBook = null
+        Book.findByPk(req.params.id)
+            .then(data => {
+                dataBook = data
+                let stock = dataBook.stock - 1
+                let id = req.params.id
+                return Book.update({
+                    stock: stock
+                }, {
+                    where: {
+                        id: id
+                    }
+                })
+            })
+            .then(data1 => {
+                res.redirect('/book?success=' + 'Successfully rent')
+            })
+            .catch(err => {
+                console.log(err)
                 res.send(err)
             })
     }

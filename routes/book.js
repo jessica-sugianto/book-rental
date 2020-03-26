@@ -18,12 +18,10 @@ router.post('/addDataPostgree', bookController.add);
 router.get('/view/:id', bookController.view);
 router.get('/edit/:id', bookController.edit);
 router.post('/edit/:id', bookController.editData);
-<<<<<<< HEAD
+router.get('/rent/:id', bookController.rent);
 router.get('/search', bookController.search);
 router.get('/seeCustomer/:id', bookController.seeCustomer);
 router.get('/upload/:id', bookController.uploadForm);
 router.post('/upload/:id', bookController.uploadData)
-=======
->>>>>>> jessica-sugianto
 
 module.exports = router;

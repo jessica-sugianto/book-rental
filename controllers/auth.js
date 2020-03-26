@@ -14,10 +14,10 @@ class AuthController {
             res.redirect('/auth/login?err=Sudah ada user yang login')
         } else {
             User.findOne({
-                    where: {
-                        username: req.body.username
-                    }
-                })
+                where: {
+                    username: req.body.username
+                }
+            })
                 .then(user => {
                     if (user) {
                         req.session.role = user.role
@@ -45,16 +45,16 @@ class AuthController {
 
     static create(req, res) {
         User.create({
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                phone_number: req.body.phone_number,
-                birth_date: new Date(req.body.birth_date),
-                address: req.body.address,
-                noktp: Number(req.body.ktp),
-                username: req.body.username,
-                password: Pass.hashPassword(req.body.password),
-                role: 'Customer'
-            })
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone_number: req.body.phone_number,
+            birth_date: new Date(req.body.birth_date),
+            address: req.body.address,
+            noktp: Number(req.body.ktp),
+            username: req.body.username,
+            password: Pass.hashPassword(req.body.password),
+            role: 'Customer'
+        })
             .then(user => {
                 res.redirect('/auth/login')
             })
