@@ -27,42 +27,6 @@
             <option value="title">Title</option>
             <option value="year">Released Year </option>
         </select>
-<<<<<<< HEAD
-        <input class="form-control mr-sm-4" type="text" name="searchData" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <br>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Released Year</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Price</th>
-                <th scope="col">Option</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for(let i = 0; i < data.length; i++) { %>
-            <tr>
-                <td><%=data[i].title%></td>
-                <td><%=data[i].author%></td>
-                <td><%=data[i].year%></td>
-                <td><%=data[i].stock%></td>
-                <td><%=data[i].harga%> /day</td>
-                <td>
-                    <a href="book/view/<%=data[i].id%>" class="btn btn-success">View</a>
-                    <a href="book/edit/<%=data[i].id%>" class="btn btn-success">Edit</a>
-                    <a href="book/seeCustomer/<%=data[i].id%>" class="btn btn-success">See Cust</a>
-                    <a href="book/upload/<%=data[i].id%>" class="btn btn-success">Upload</a>
-                </td>
-
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-=======
                     <input class="form-control mr-sm-4" type="text" name="searchData" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -95,12 +59,17 @@
                                 </td>
                                 <td>
                                     <%=data[i].harga%> /day</td>
-                                <td><a href="book/edit/<%=data[i].id%>" class="btn btn-success">Edit</a></td>
+                                <td>
+                                    <a href="book/view/<%=data[i].id%>" class="btn btn-success">View</a>
+                                    <a href="book/edit/<%=data[i].id%>" class="btn btn-success">Edit</a>
+                                    <a href="book/seeCustomer/<%=data[i].id%>" class="btn btn-success">See Cust</a>
+                                    <a href="book/upload/<%=data[i].id%>" class="btn btn-success">Upload</a>
+                                </td>
+
                             </tr>
                             <% } %>
                     </tbody>
                 </table>
->>>>>>> jessica-sugianto
 
 </body>
 
