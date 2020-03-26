@@ -11,6 +11,11 @@
 
 <body>
     <%- include('partial/navbar') %>
+        <% if(err){%>
+            <div class="alert alert-danger" role="alert">
+                <%= err %>
+            </div>
+            <%} %>
 </body>
 
 </html>
