@@ -58,49 +58,20 @@ class Books {
 
         let column = `${req.query.searchBy}`
 
-        if (`${req.query.searchBy}` == 'title') {
-            Book.findAll({
-                where: {
-                    title: {
-                        [Op.iLike]: `%${req.query.searchData}%`
-                    }
+        Book.findAll({
+            where: {
+                [column]: {
+                    [Op.iLike]: `%${req.query.searchData}%`
                 }
+            }
+        })
+            .then(data => {
+                res.render('book.ejs', { data: data, success: null })
             })
-                .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
-                })
-                .catch(err => {
-                    res.send(err)
-                })
-        } else if (`${req.query.searchBy}` == 'author') {
-            Book.findAll({
-                where: {
-                    author: {
-                        [Op.iLike]: `%${req.query.searchData}%`
-                    }
-                }
+            .catch(err => {
+                res.send(err)
             })
-                .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
-                })
-                .catch(err => {
-                    res.send(err)
-                })
-        } else if (`${req.query.searchBy}` == 'year') {
-            Book.findAll({
-                where: {
-                    year: {
-                        [Op.iLike]: `%${req.query.searchData}%`
-                    }
-                }
-            })
-                .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
-                })
-                .catch(err => {
-                    res.send(err)
-                })
-        }
+
     }
 }
 
