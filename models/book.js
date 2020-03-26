@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     author: DataTypes.STRING,
     year: DataTypes.INTEGER,
     stock: DataTypes.INTEGER,
-    harga: DataTypes.INTEGER
+    harga: DataTypes.INTEGER,
+    pathImage: DataTypes.STRING,
   }, { sequelize });
 
   Book.associate = function (models) {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <%- include('partial/bootstrap') %>
+
+</head>
+
+<body>
+    <%- include('partial/navbar') %>
+    <div class="container">
+        <h2>File Upload</h2>
+        <form action="/book/upload/<%= data.id %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" class="form-control-file" name="bookImage">
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
