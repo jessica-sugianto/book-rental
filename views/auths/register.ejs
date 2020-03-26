@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Rental</title>
+
+    <%- include('../partial/bootstrap') %>
+</head>
+
+<body>
+    <%- include('../partial/navbar') %>
+        <% if(err){%>
+            <div class="alert alert-danger" role="alert">
+                <%= err %>
+            </div>
+            <%} %>
+                <h1 style="text-align: center;"> Register </h1>
+                <div style="padding-left: 35%;">
+                    <form method="POST" action="/auth/register">
+                        <table>
+                            <tr>
+                                <td style="width: 300px;">
+                                    <label> First Name </label><br>
+                                    <input type="text" placeholder="First Name" name="first_name"><br><br>
+                                </td>
+                                <td>
+                                    <label> Last Name </label><br>
+                                    <input type="text" placeholder="Last Name" name="last_name"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label> Phone Number </label><br>
+                                    <input type="text" placeholder="Phone Number" name="phone_number"><br><br>
+                                </td>
+                                <td>
+                                    <label> Birth Date </label><br>
+                                    <input type="date" name="birth_date"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label> Address </label><br>
+                                    <input type="text" placeholder="Address" name="address"><br><br>
+                                </td>
+                                <td>
+                                    <label> KTP </label><br>
+                                    <input type="text" placeholder="KTP" name="ktp"><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label> Username </label><br>
+                                    <input type="text" name="username" placeholder="Username"><br><br>
+                                </td>
+                                <td>
+                                    <label> Password </label><br>
+                                    <input type="password" name="password" placeholder="Password"><br><br>
+                                </td>
+                            </tr>
+                        </table>
+                        <a href="/auth/login"> Sudah punya akun? Mari login </a><br><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+</body>
+
+</html>

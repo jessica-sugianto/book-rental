@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Rental</title>
+
+    <%- include('../partial/bootstrap') %>
+</head>
+
+<body>
+    <%- include('../partial/navbar') %>
+        <% if(err){%>
+            <div class="alert alert-danger" role="alert">
+                <%= err %>
+            </div>
+            <%} %>
+                <h1 style="text-align: center;"> Login </h1>
+                <div style="padding-left: 45%;">
+                    <form method="POST" action="/auth/login">
+                        <label> Username </label><br>
+                        <input type="text" name="username" placeholder="Username"><br><br>
+                        <label> Password </label><br>
+                        <input type="password" name="password" placeholder="Password"><br><br>
+                        <a href="/auth/register"> Belum punya akun? Mari daftar </a><br><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+</body>
+
+</html>
