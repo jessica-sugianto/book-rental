@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Rental</title>
+
+    <%- include('partial/bootstrap') %>
+</head>
+
+<body>
+    <%- include('partial/navbar') %>
+    <form action="/book/addDataPostgree" method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" placeholder="Enter title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" placeholder="Enter author" name="author">
+        </div>
+        <div class="form-group">
+            <label for="year">Released Year</label>
+            <input type="number" class="form-control" placeholder="Enter released year" name="year">
+        </div>
+        <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" class="form-control" placeholder="Enter stock" name="stock">
+        </div>
+        <div class="form-group">
+            <label for="harga">Price</label>
+            <input type="number" class="form-control" placeholder="Enter price" name="harga">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</body>
+
+</html>
