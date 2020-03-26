@@ -8,5 +8,6 @@ router.post('/addDataPostgree', bookController.add);
 router.get('/edit/:id', bookController.edit);
 router.post('/edit/:id', bookController.editData);
 router.get('/search', bookController.search);
+router.get('/seeCustomer/:id', bookController.seeCustomer)
 
 module.exports = router;

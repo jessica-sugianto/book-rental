@@ -1,4 +1,4 @@
-const { Book } = require('../models')
+const { Book, User } = require('../models')
 const { Op } = require("sequelize");
 
 class Books {
@@ -55,9 +55,7 @@ class Books {
     }
 
     static search(req, res) {
-
         let column = `${req.query.searchBy}`
-
         Book.findAll({
             where: {
                 [column]: {
@@ -71,7 +69,17 @@ class Books {
             .catch(err => {
                 res.send(err)
             })
+    }
 
+    static seeCustomer(req, res) {
+        let id = req.params.id
+        Book.findByPk(id, { include: [{ model: User }] })
+            .then((data) => {
+                //res.send(data)
+                res.render('seeCustomer.ejs', {
+                    data: data
+                })
+            })
     }
 }
 
