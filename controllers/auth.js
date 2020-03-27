@@ -13,16 +13,10 @@ class AuthController {
         if (req.session.role) {
             res.redirect('/auth/login?err=Sudah ada user yang login')
         } else {
-            User.findAll({ where: { noktp: req.body.ktp } })
-                .then(user => {
-                    if (user.length > 0) {
-                        return User.findOne({
-                            where: {
-                                username: req.body.username
-                            }
-                        })
-                    } else {
-                        res.redirect('/auth/login?err=Ktp sudah dipakai')
+
+            User.findOne({
+                    where: {
+                        username: req.body.username
                     }
                 })
                 .then(user => {
@@ -52,16 +46,23 @@ class AuthController {
     }
 
     static create(req, res) {
-        User.create({
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                phone_number: req.body.phone_number,
-                birth_date: new Date(req.body.birth_date),
-                address: req.body.address,
-                noktp: Number(req.body.ktp),
-                username: req.body.username,
-                password: Pass.hashPassword(req.body.password),
-                role: 'Customer'
+        User.findAll({ where: { noktp: req.body.ktp } })
+            .then(user => {
+                if (user.length > 0) {
+                    return User.create({
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
+                        phone_number: req.body.phone_number,
+                        birth_date: new Date(req.body.birth_date),
+                        address: req.body.address,
+                        noktp: Number(req.body.ktp),
+                        username: req.body.username,
+                        password: Pass.hashPassword(req.body.password),
+                        role: 'Customer'
+                    })
+                } else {
+                    res.redirect('/auth/register?err=Ktp sudah dipakai')
+                }
             })
             .then(user => {
                 res.redirect('/auth/login')
