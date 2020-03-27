@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
                     msg: 'Nomor HP tidak boleh kosong'
                 },
                 not: {
-                    msg: 'Hanya boleh menginputkan angka'
+                    args: ["[a-z]", 'i'],
+                    msg: 'Nomor HP hanya boleh menginputkan angka'
                 }
             }
         },

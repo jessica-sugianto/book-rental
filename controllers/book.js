@@ -1,4 +1,4 @@
-const { Book, User } = require('../models')
+const { Book, User, Transaction } = require('../models')
 const { Op } = require("sequelize");
 const Auth = require("../controllers/auth")
 
@@ -21,8 +21,8 @@ class Books {
         console.log(req.session.role)
         Book.findAll({ order: [["title", 'ASC']] })
             .then(data => {
-                if (req.query.success) res.render('book.ejs', { data: data, success: req.query.success })
-                else res.render('book.ejs', { data: data, success: null })
+                if (req.query.success) res.render('book.ejs', { data: data, success: req.query.success, role: req.session.role })
+                else res.render('book.ejs', { data: data, success: null, role: req.session.role })
             })
             .catch(err => {
                 res.send(err)
@@ -62,16 +62,24 @@ class Books {
     }
 
     static create(req, res) {
-        res.render('addBook.ejs')
+        res.render('addBook.ejs', { err: req.query.err })
     }
 
     static add(req, res) {
-        Book.create(req.body)
+        Book.create({
+            title: req.body.title,
+            author: req.body.author,
+            year: req.body.year,
+            stock: req.body.stock,
+            readyStock: req.body.stock,
+            harga: req.body.harga
+        })
             .then(data => {
                 res.redirect('/book?success=' + 'Successfully added data')
             })
             .catch(err => {
-                res.send(err)
+                console.log(err)
+                res.redirect('/book/add?err=' + err.errors[0].message)
             })
     }
 
@@ -112,23 +120,75 @@ class Books {
             })
     }
 
+    static rentForm(req, res) {
+        let bookId = req.params.id
+        res.render('rentForm.ejs', { id: bookId })
+
+    }
+
     static rent(req, res) {
+        console.log(req.session.UserId)
+        let id = req.params.id
         let dataBook = null
         Book.findByPk(req.params.id)
             .then(data => {
                 dataBook = data
-                let stock = dataBook.stock - 1
-                let id = req.params.id
+                let stock = dataBook.readyStock - 1
+
                 return Book.update({
-                    stock: stock
+                    readyStock: stock
                 }, {
                     where: {
                         id: id
                     }
                 })
             })
+            .then(data2 => {
+                Transaction.create({
+                    UserId: req.session.UserId,
+                    BookId: id,
+                    borrow_date: new Date(),
+                    duration: req.body.duration,
+                    total_price: 0
+                })
+            })
             .then(data1 => {
-                res.redirect('/book?success=' + 'Successfully rent')
+                res.redirect('/book/seeCustomer/' + id)
+            })
+            .catch(err => {
+                console.log(err)
+                res.send(err)
+            })
+    }
+
+    static return(req, res) {
+        let id = req.params.id
+        let dataBook = null
+        Book.findByPk(req.params.id)
+            .then(data => {
+                dataBook = data
+                let stock = dataBook.readyStock + 1
+
+                return Book.update({
+                    readyStock: stock
+                }, {
+                    where: {
+                        id: id
+                    }
+                })
+            })
+            .then(data2 => {
+                return Transaction.destroy({
+                    where: {
+                        [Op.and]: [
+                            { UserId: req.session.UserId },
+                            { BookId: id }
+                        ]
+                    }
+                })
+            })
+            .then(data1 => {
+                res.redirect('/book')
             })
             .catch(err => {
                 console.log(err)
@@ -138,19 +198,35 @@ class Books {
 
     static search(req, res) {
         let column = `${req.query.searchBy}`
-        Book.findAll({
-            where: {
-                [column]: {
-                    [Op.iLike]: `%${req.query.searchData}%`
+        if (column == 'year') {
+            Book.findAll({
+                where: {
+                    [column]: {
+                        [Op.eq]: `${req.query.searchData}`
+                    }
                 }
-            }
-        })
-            .then(data => {
-                res.render('book.ejs', { data: data, success: null })
             })
-            .catch(err => {
-                res.send(err)
+                .then(data => {
+                    res.render('book.ejs', { data: data, success: null })
+                })
+                .catch(err => {
+                    res.send(err)
+                })
+        } else {
+            Book.findAll({
+                where: {
+                    [column]: {
+                        [Op.iLike]: `%${req.query.searchData}%`
+                    }
+                }
             })
+                .then(data => {
+                    res.render('book.ejs', { data: data, success: null })
+                })
+                .catch(err => {
+                    res.send(err)
+                })
+        }
     }
 
     static seeCustomer(req, res) {

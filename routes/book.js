@@ -9,8 +9,10 @@ router.use((req, res, next) => {
     if (req.session.role === 'Admin') {
         next()
     } else if (req.session.role === 'Customer') {
-        router.get('/rent/:id', bookController.rent);
-        // res.redirect('/?err=Bukan Admin')
+        router.get('/rent/:id', bookController.rentForm);
+        router.post('/rent/:id', bookController.rent);
+        router.get('/return/:id', bookController.return);
+        next()
     } else {
         res.redirect('/?err=User belum login')
     }
