@@ -9,29 +9,39 @@
 </head>
 
 <body>
-    <%- include('partial/navbar') %>
-    <h2><%=data.title%></h2>
+    <%- include('partial/navbar',{session:session}) %>
+        <h2>
+            <%=data.title%>
+        </h2>
 
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Durasi</th>
-                <th scope="col">No Hp</th>
-                <th scope="col">Total Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% data.Users.forEach((dataUser) => { %>
-            <tr>
-                <td><%= dataUser.first_name %> <%= dataUser.last_name %></td>
-                <td><%= dataUser.Transaction.duration %> Days</td>
-                <td><%= dataUser.phone_number %></td>
-                <td><%= helperPrice(data.harga, dataUser.Transaction.duration) %></td>
-            </tr>
-            <% }) %>
-        </tbody>
-    </table>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Durasi</th>
+                    <th scope="col">No Hp</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.Users.forEach((dataUser) => { %>
+                    <tr>
+                        <td>
+                            <%= dataUser.first_name %>
+                                <%= dataUser.last_name %>
+                        </td>
+                        <td>
+                            <%= dataUser.Transaction.duration %> Days</td>
+                        <td>
+                            <%= dataUser.phone_number %>
+                        </td>
+                        <td>
+                            <%= helperPrice(data.harga, dataUser.Transaction.duration) %>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
 </body>
 
 </html>

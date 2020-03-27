@@ -10,39 +10,39 @@
 </head>
 
 <body>
-    <%- include('partial/navbar') %>
-    <% if(err){%>
-    <div class="alert alert-danger" role="alert">
-        <%= err %>
-    </div>
-    <%} %>
-    <form action="/book/addDataPostgree" method="POST">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" placeholder="Enter title" name="title">
-        </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" class="form-control" placeholder="Enter author" name="author">
-        </div>
-        <div class="form-group">
-            <label for="year">Released Year</label>
-            <input type="number" class="form-control" placeholder="Enter released year" name="year">
-        </div>
-        <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number" class="form-control" placeholder="Enter stock" name="stock">
-        </div>
-        <div class="form-group">
-            <input type="hidden" class="form-control" placeholder="Enter stock" name="readyStock" value=0>
-        </div>
-        <div class="form-group">
-            <label for="harga">Price</label>
-            <input type="number" class="form-control" placeholder="Enter price" name="harga">
-        </div>
+    <%- include('partial/navbar',{session:session}) %>
+        <% if(err){%>
+            <div class="alert alert-danger" role="alert">
+                <%= err %>
+            </div>
+            <%} %>
+                <form action="/book/addDataPostgree" method="POST">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" placeholder="Enter title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" class="form-control" placeholder="Enter author" name="author">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Released Year</label>
+                        <input type="number" class="form-control" placeholder="Enter released year" name="year">
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" class="form-control" placeholder="Enter stock" name="stock">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" placeholder="Enter stock" name="readyStock" value=0>
+                    </div>
+                    <div class="form-group">
+                        <label for="harga">Price</label>
+                        <input type="number" class="form-control" placeholder="Enter price" name="harga">
+                    </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
 </body>
 
 </html>

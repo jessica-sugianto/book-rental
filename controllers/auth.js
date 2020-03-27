@@ -5,7 +5,8 @@ class AuthController {
 
     static formLogin(req, res) {
         res.render('auths/login', {
-            err: req.query.err
+            err: req.query.err,
+            session: req.session.role
         })
     }
 
@@ -41,7 +42,8 @@ class AuthController {
 
     static formRegister(req, res) {
         res.render('auths/register', {
-            err: req.query.err
+            err: req.query.err,
+            session: req.session.role
         })
     }
 

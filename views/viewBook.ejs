@@ -10,36 +10,31 @@
 </head>
 
 <body>
-    <%- include('partial/navbar') %>
-    <form action="/book/edit/<%= data.id %>" method="POST">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" placeholder="Enter title" name="title" value="<%= data.title %>"
-                readonly>
-        </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" class="form-control" placeholder="Enter author" name="author" value="<%= data.author %>"
-                readonly>
-        </div>
-        <div class="form-group">
-            <label for="year">Released Year</label>
-            <input type="number" class="form-control" placeholder="Enter released year" name="year"
-                value="<%= data.year %>" readonly>
-        </div>
-        <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number" class="form-control" placeholder="Enter stock" name="stock" value="<%= data.stock %>"
-                readonly>
-        </div>
-        <div class="form-group">
-            <label for="harga">Price</label>
-            <input type="number" class="form-control" placeholder="Enter price" name="harga" value="<%= data.harga %>"
-                readonly>
-        </div>
+    <%- include('partial/navbar',{session:session}) %>
+        <form action="/book/edit/<%= data.id %>" method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" placeholder="Enter title" name="title" value="<%= data.title %>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" class="form-control" placeholder="Enter author" name="author" value="<%= data.author %>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="year">Released Year</label>
+                <input type="number" class="form-control" placeholder="Enter released year" name="year" value="<%= data.year %>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" class="form-control" placeholder="Enter stock" name="stock" value="<%= data.stock %>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="harga">Price</label>
+                <input type="number" class="form-control" placeholder="Enter price" name="harga" value="<%= data.harga %>" readonly>
+            </div>
 
-        <img src='../../<%= data.pathImage %>' class="img-thumbnail">
-    </form>
+            <img src='../../<%= data.pathImage %>' class="img-thumbnail">
+        </form>
 </body>
 
 </html>

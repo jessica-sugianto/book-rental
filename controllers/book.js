@@ -36,7 +36,10 @@ class Books {
         let bookId = req.params.id
         Book.findByPk(bookId)
             .then(data => {
-                res.render('uploadBook.ejs', { data: data })
+                res.render('uploadBook.ejs', {
+                    data: data,
+                    session: req.session.role
+                })
             })
             .catch(err => {
                 res.send(err)
@@ -64,7 +67,10 @@ class Books {
     }
 
     static create(req, res) {
-        res.render('addBook.ejs', { err: req.query.err })
+        res.render('addBook.ejs', {
+            err: req.query.err,
+            session: req.session.role
+        })
     }
 
     static add(req, res) {
@@ -89,7 +95,10 @@ class Books {
         let bookId = req.params.id
         Book.findByPk(bookId)
             .then(data => {
-                res.render('viewBook.ejs', { data: data })
+                res.render('viewBook.ejs', {
+                    data: data,
+                    session: req.session.role
+                })
             })
             .catch(err => {
                 res.send(err)
@@ -100,7 +109,10 @@ class Books {
         let bookId = req.params.id
         Book.findByPk(bookId)
             .then(data => {
-                res.render('editBook.ejs', { data: data })
+                res.render('editBook.ejs', {
+                    data: data,
+                    session: req.session.role
+                })
             })
             .catch(err => {
                 res.send(err)
@@ -123,7 +135,10 @@ class Books {
 
     static rentForm(req, res) {
         let bookId = req.params.id
-        res.render('rentForm.ejs', { id: bookId })
+        res.render('rentForm.ejs', {
+            id: bookId,
+            session: req.session.role
+        })
 
     }
 
@@ -245,7 +260,8 @@ class Books {
             .then((data) => {
                 //res.send(data)
                 res.render('seeCustomer.ejs', {
-                    data: data
+                    data: data,
+                    session: req.session.role
                 })
             })
     }

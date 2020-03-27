@@ -10,15 +10,15 @@
 </head>
 
 <body>
-    <%- include('partial/navbar') %>
-    <form action="/book/rent/<%= id %>" method="POST">
-        <div class="form-group">
-            <label for="title">Duration</label>
-            <input type="text" class="form-control" placeholder="Enter duration" name="duration">
-        </div>
+    <%- include('partial/navbar',{session:session}) %>
+        <form action="/book/rent/<%= id %>" method="POST">
+            <div class="form-group">
+                <label for="title">Duration</label>
+                <input type="text" class="form-control" placeholder="Enter duration" name="duration">
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 </body>
 
 </html>

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <%- include('../partial/navbar') %>
+    <%- include('../partial/navbar',{session:session}) %>
         <% if(err){%>
             <div class="alert alert-danger" role="alert">
                 <%= err %>
