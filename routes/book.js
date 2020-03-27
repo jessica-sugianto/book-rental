@@ -4,13 +4,13 @@ const bookController = require('../controllers/book')
 
 router.get('/', bookController.list);
 router.get('/search', bookController.search);
-
 router.get('/view/:id', bookController.view);
 router.use((req, res, next) => {
     if (req.session.role === 'Admin') {
         next()
     } else if (req.session.role === 'Customer') {
-        res.redirect('/?err=Bukan Admin')
+        router.get('/rent/:id', bookController.rent);
+        // res.redirect('/?err=Bukan Admin')
     } else {
         res.redirect('/?err=User belum login')
     }

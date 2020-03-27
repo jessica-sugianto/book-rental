@@ -21,6 +21,8 @@ class AuthController {
                 .then(user => {
                     if (user) {
                         req.session.role = user.role
+                        req.session.useerId = user.id
+                        console.log(req.session)
                         if (Pass.checkPassword(req.body.password, user.password)) {
                             res.redirect('/book')
                         } else {
