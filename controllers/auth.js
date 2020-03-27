@@ -13,9 +13,16 @@ class AuthController {
         if (req.session.role) {
             res.redirect('/auth/login?err=Sudah ada user yang login')
         } else {
-            User.findOne({
-                    where: {
-                        username: req.body.username
+            User.findAll({ where: { noktp: req.body.ktp } })
+                .then(user => {
+                    if (user.length > 0) {
+                        return User.findOne({
+                            where: {
+                                username: req.body.username
+                            }
+                        })
+                    } else {
+                        res.redirect('/auth/login?err=Ktp sudah dipakai')
                     }
                 })
                 .then(user => {

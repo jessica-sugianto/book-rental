@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path')
 const storage = multer.diskStorage({
     destination: './public/uploads/',
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 })
@@ -18,8 +18,11 @@ const upload = multer({
 class Books {
 
     static list(req, res) {
-        console.log(req.session.role)
-        Book.findAll({ order: [["title", 'ASC']] })
+        Book.findAll({
+                order: [
+                    ["title", 'ASC']
+                ]
+            })
             .then(data => {
                 if (req.query.success) res.render('book.ejs', { data: data, success: req.query.success, role: req.session.role })
                 else res.render('book.ejs', { data: data, success: null, role: req.session.role })
@@ -45,8 +48,7 @@ class Books {
             if (err) res.send(err)
             else {
                 let pathImage = `uploads/${req.file.filename}`
-                Book.update({ pathImage: pathImage },
-                    {
+                Book.update({ pathImage: pathImage }, {
                         where: {
                             id: req.params.id
                         }
@@ -67,13 +69,13 @@ class Books {
 
     static add(req, res) {
         Book.create({
-            title: req.body.title,
-            author: req.body.author,
-            year: req.body.year,
-            stock: req.body.stock,
-            readyStock: req.body.stock,
-            harga: req.body.harga
-        })
+                title: req.body.title,
+                author: req.body.author,
+                year: req.body.year,
+                stock: req.body.stock,
+                readyStock: req.body.stock,
+                harga: req.body.harga
+            })
             .then(data => {
                 res.redirect('/book?success=' + 'Successfully added data')
             })
@@ -106,8 +108,7 @@ class Books {
     }
 
     static editData(req, res) {
-        Book.update(req.body,
-            {
+        Book.update(req.body, {
                 where: {
                     id: req.params.id
                 }
@@ -127,7 +128,6 @@ class Books {
     }
 
     static rent(req, res) {
-        console.log(req.session.UserId)
         let id = req.params.id
         let dataBook = null
         Book.findByPk(req.params.id)
@@ -161,12 +161,22 @@ class Books {
             })
     }
 
-    static return(req, res) {
+    static
+    return (req, res) {
         let id = req.params.id
         let dataBook = null
-        Book.findByPk(req.params.id)
+
+        Transaction.findAll({ where: { UserId: req.session.UserId } })
+            .then(data => {
+                if (data.length > 0) {
+                    return Book.findByPk(req.params.id)
+                } else {
+                    res.redirect('/book')
+                }
+            })
             .then(data => {
                 dataBook = data
+
                 let stock = dataBook.readyStock + 1
 
                 return Book.update({
@@ -200,12 +210,12 @@ class Books {
         let column = `${req.query.searchBy}`
         if (column == 'year') {
             Book.findAll({
-                where: {
-                    [column]: {
-                        [Op.eq]: `${req.query.searchData}`
+                    where: {
+                        [column]: {
+                            [Op.eq]: `${req.query.searchData}`
+                        }
                     }
-                }
-            })
+                })
                 .then(data => {
                     res.render('book.ejs', { data: data, success: null })
                 })
@@ -214,12 +224,12 @@ class Books {
                 })
         } else {
             Book.findAll({
-                where: {
-                    [column]: {
-                        [Op.iLike]: `%${req.query.searchData}%`
+                    where: {
+                        [column]: {
+                            [Op.iLike]: `%${req.query.searchData}%`
+                        }
                     }
-                }
-            })
+                })
                 .then(data => {
                     res.render('book.ejs', { data: data, success: null })
                 })

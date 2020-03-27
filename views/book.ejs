@@ -74,7 +74,7 @@
 
 
                                                     <a href="book/view/<%=data[i].id%>" class="btn btn-success">View</a>
-                                                    <% if(`${data[i].stock}` > 0) { %>
+                                                    <% if(`${data[i].readyStock}` > 0) { %>
                                                         <a href="book/rent/<%=data[i].id%>" class="btn btn-success">Rent</a>
                                                         <% } %>
                                                             <% console.log(data[i].stock, data[i].readyStock) %>
