@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path')
 const storage = multer.diskStorage({
     destination: './public/uploads/',
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 })
@@ -19,10 +19,10 @@ class Books {
 
     static list(req, res) {
         Book.findAll({
-                order: [
-                    ["title", 'ASC']
-                ]
-            })
+            order: [
+                ["title", 'ASC']
+            ]
+        })
             .then(data => {
                 if (req.query.success) res.render('book.ejs', { data: data, success: req.query.success, role: req.session.role })
                 else res.render('book.ejs', { data: data, success: null, role: req.session.role })
@@ -52,10 +52,10 @@ class Books {
             else {
                 let pathImage = `uploads/${req.file.filename}`
                 Book.update({ pathImage: pathImage }, {
-                        where: {
-                            id: req.params.id
-                        }
-                    })
+                    where: {
+                        id: req.params.id
+                    }
+                })
                     .then(data => {
                         res.redirect('/book?success=' + 'Successfully add image')
                     })
@@ -75,13 +75,13 @@ class Books {
 
     static add(req, res) {
         Book.create({
-                title: req.body.title,
-                author: req.body.author,
-                year: req.body.year,
-                stock: req.body.stock,
-                readyStock: req.body.stock,
-                harga: req.body.harga
-            })
+            title: req.body.title,
+            author: req.body.author,
+            year: req.body.year,
+            stock: req.body.stock,
+            readyStock: req.body.stock,
+            harga: req.body.harga
+        })
             .then(data => {
                 res.redirect('/book?success=' + 'Successfully added data')
             })
@@ -121,10 +121,10 @@ class Books {
 
     static editData(req, res) {
         Book.update(req.body, {
-                where: {
-                    id: req.params.id
-                }
-            })
+            where: {
+                id: req.params.id
+            }
+        })
             .then(data => {
                 res.redirect('/book?success=' + 'Successfully edit data')
             })
@@ -177,7 +177,7 @@ class Books {
     }
 
     static
-    return (req, res) {
+        return(req, res) {
         let id = req.params.id
         let dataBook = null
 
@@ -225,28 +225,28 @@ class Books {
         let column = `${req.query.searchBy}`
         if (column == 'year') {
             Book.findAll({
-                    where: {
-                        [column]: {
-                            [Op.eq]: `${req.query.searchData}`
-                        }
+                where: {
+                    [column]: {
+                        [Op.eq]: `${req.query.searchData}`
                     }
-                })
+                }
+            })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
+                    res.render('searchres.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
                 })
         } else {
             Book.findAll({
-                    where: {
-                        [column]: {
-                            [Op.iLike]: `%${req.query.searchData}%`
-                        }
+                where: {
+                    [column]: {
+                        [Op.iLike]: `%${req.query.searchData}%`
                     }
-                })
+                }
+            })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
+                    res.render('searchres.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
