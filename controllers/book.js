@@ -164,6 +164,7 @@ class Books {
     static return(req, res) {
         let id = req.params.id
         let dataBook = null
+
         Book.findByPk(req.params.id)
             .then(data => {
                 dataBook = data
@@ -207,7 +208,7 @@ class Books {
                 }
             })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
+                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
@@ -221,7 +222,7 @@ class Books {
                 }
             })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
+                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
