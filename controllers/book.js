@@ -217,7 +217,7 @@ class Books {
                     }
                 })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
+                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
@@ -231,7 +231,7 @@ class Books {
                     }
                 })
                 .then(data => {
-                    res.render('book.ejs', { data: data, success: null })
+                    res.render('book.ejs', { data: data, success: null, role: req.session.role })
                 })
                 .catch(err => {
                     res.send(err)
