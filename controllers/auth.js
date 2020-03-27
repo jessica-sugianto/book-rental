@@ -50,7 +50,7 @@ class AuthController {
     static create(req, res) {
         User.findAll({ where: { noktp: req.body.ktp } })
             .then(user => {
-                if (user.length > 0) {
+                if (user.length === 0) {
                     return User.create({
                         first_name: req.body.first_name,
                         last_name: req.body.last_name,
